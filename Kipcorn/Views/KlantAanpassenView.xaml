@@ -1,0 +1,49 @@
+﻿<Window x:Class="wpf.Views.KlantAanpassenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="KlantAanpassenView" Height="350" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Klant aanpassen" FontWeight="Bold" Margin="5" Grid.ColumnSpan="4"/>
+        <TextBox materialDesign:HintAssist.Hint="Naam" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Klant.Naam,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Telefoon" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Klant.Telefoon,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Straat" Grid.Row="2" Text="{Binding Klant.Straat,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Nummer" Grid.Row="2" Grid.Column="1" Text="{Binding Klant.HuisNr,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Postcode" Grid.Row="2" Grid.Column="2" Text="{Binding Klant.Postcode,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Plaats" Grid.Row="2" Grid.Column="3" Text="{Binding Klant.Plaats,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Email" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Klant.Email,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox materialDesign:HintAssist.Hint="Btw nummer" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Klant.BtwNummer,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" materialDesign:HintAssist.HelperText="Enkel vereist voor proffecionele klanten"/>
+        <Button Command="{Binding}" CommandParameter="KlantOpslaan" Margin="5" Grid.Row="7">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentSave" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                <TextBlock Text="Opslaan"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

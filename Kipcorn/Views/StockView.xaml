@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="wpf.Views.StockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wpf.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth1" materialDesign:ShadowAssist.ShadowEdges="Right" Grid.RowSpan="3">
+            <StackPanel>
+                <Button Command="{Binding}" CommandParameter="VerwijderCatFilter" Margin="5" Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                        Content="Alle Categorieën"/>
+                <DataGrid ItemsSource="{Binding Categorieen}" SelectedItem="{Binding GeselecteerdeCategorie}" 
+                      IsReadOnly="True" AutoGenerateColumns="False" Height="1000" IsEnabled="{Binding CategorieFilterIsEnabled}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Naam}" Header="Categorieën"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+        </materialDesign:ColorZone>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding GeselecteerdeCategorie}" FontWeight="bold" Margin="25 10 20 8" VerticalAlignment="Center"/>
+            <TextBox materialDesign:HintAssist.Hint="Waar ben je naar op zoek?" Grid.Column="1" Margin="0 10 5 10" 
+                     VerticalAlignment="Bottom" Text="{Binding ArtikelNaam, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding ZoekenIsEnabled}"/>
+            <ComboBox materialDesign:HintAssist.Hint="Sorteren" Grid.Column="3" Margin="5 10 25 10" VerticalAlignment="Bottom" 
+                      ItemsSource="{Binding Sortering}" SelectedItem="{Binding GeselecteerdeSortering}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEnabled="{Binding SorterenIsEnabled}"/>
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding Artikels}" SelectedItem="{Binding GeselecteerdArtikel}" IsReadOnly="True" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="25 0 25 0"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <materialDesign:DataGridTextColumn Binding="{Binding Naam}" Header="Naam"/>
+                <materialDesign:DataGridTextColumn Binding="{Binding Prijs, StringFormat=C}" Header="Prijs"/>
+                <DataGridCheckBoxColumn Binding="{Binding EcoCheques}" Header="Eco-cheques"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Margin="0 10 25 10">
+            <Button Command="{Binding}" CommandParameter="ArtikelBewerken" Margin="0 0 5 0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Pencil" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="Bewerken"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding}" CommandParameter="ArtikelVerwijderen" Margin="5 0 5 0" Background="Red" BorderBrush="Red">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="TrashCan" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="Verwijderen"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding}" CommandParameter="ArtikelToevoegen" Margin="5 0 0 0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Plus" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="Nieuw artikel toevoegen"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

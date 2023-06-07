@@ -1,0 +1,100 @@
+﻿<Window x:Class="wpf.Views.ArtikelAanpassenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf.Views"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="ArtikelAanpassenView" Height="600" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Artikel aanpassen" FontWeight="Bold" Margin="5" Grid.ColumnSpan="3"/>
+        <Separator Margin="5" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox materialDesign:HintAssist.Hint="Naam" Grid.Row="2" Text="{Binding Artikel.Naam,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding Categorieen}" SelectedValue="{Binding Artikel.CategorieId, ValidatesOnDataErrors=True}" SelectedValuePath="CategorieId"
+            materialDesign:HintAssist.Hint="Categorie" Grid.Row="2" Grid.Column="1" Margin="5"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+        <TextBox Text="{Binding Artikel.Prijs, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, StringFormat=C}"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="3" VerticalAlignment="Center"
+                 materialDesign:HintAssist.Hint="Prijs" Margin="5"/>
+        <CheckBox IsChecked="{Binding Artikel.EcoCheques, ValidatesOnDataErrors=True}"
+            Content="Eco-cheques" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Bottom"/>
+        <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="Stock" 
+                   Margin="5" Grid.ColumnSpan="3" Grid.Row="4"/>
+        <materialDesign:Card Grid.Row="5" Margin="5" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DataGrid ItemsSource="{Binding Stocks}" SelectedItem="{Binding GeselecteerdeStock}"
+                              AutoGenerateColumns="False" Margin="5">
+                        <DataGrid.Columns>
+                            <materialDesign:DataGridTextColumn Binding="{Binding Aantal}" Header="Aantal"  IsReadOnly="False"/>
+                            <materialDesign:DataGridTextColumn Binding="{Binding Vestiging.Naam}" Header="Vestiging"  IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:Card Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel VerticalAlignment="Top">
+                                <TextBox materialDesign:HintAssist.Hint="Aantal" Text="{Binding Aantal, UpdateSourceTrigger=PropertyChanged}" Margin="5 5 5 0"
+                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding AantalError}" FontSize="11" Margin="5 0 5 0" Background="#fafafa" Foreground="#b00020"/>
+                            </StackPanel>
+
+                            <ComboBox VerticalAlignment="Top" ItemsSource="{Binding Vestigingen, ValidatesOnDataErrors=True}" SelectedItem="{Binding GeselecteerdeVestiging}"
+                                    materialDesign:HintAssist.Hint="Vestiging" Grid.Column="1" Margin="5"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            <Button Command="{Binding}" CommandParameter="StockToevoegen" Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Plus" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                                    <TextBlock Text="Vestiging toevoegen"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </materialDesign:Card>
+                    <Button Grid.Column="1" VerticalAlignment="Bottom" Command="{Binding}" CommandParameter="StockVerwijderen" Margin="5 5 5 10" Background="Red" BorderBrush="Red">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="TrashCan" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+        <Button Command="{Binding}" CommandParameter="ArtikelOpslaan" Margin="5" Grid.Row="6">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentSave" Margin="0 0 10 0" VerticalAlignment="Bottom"/>
+                <TextBlock Text="Opslaan"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
